@@ -9,13 +9,11 @@ AFRAME.registerComponent('networked-video-source', {
   dependencies: ['material'],
 
   init: function () {
-
-    const mesh = this.el.getObject3D('mesh');
-mesh.visible = false;
-
     this.videoTexture = null;
     this.video = null;
     this.stream = null;
+    const mesh = this.el.getObject3D('mesh');
+   mesh.visible = false;
 
     this._setMediaStream = this._setMediaStream.bind(this);
     this._waitForMediaStream = this._waitForMediaStream.bind(this);
@@ -63,32 +61,17 @@ mesh.visible = false;
 
         const mesh = this.el.getObject3D('mesh');
         mesh.material.map = this.videoTexture;
-        mesh.material.map.colorSpace = THREE.SRGBColorSpace;
         mesh.material.needsUpdate = true;
-
-        mesh.visible = true;
-
-
-
-
-        const screenPlane = document.querySelector("#screen-plane").object3D;
-
-        screenPlane.addEventListener("model-loaded" , ()=>{
-          console.log("model loaded")
-
-        })
-
-        console.log(screenPlane)
-     console.log(screenPlane.material)
-
-
-
+        mesh.material.map.colorSpace = THREE.SRGBColorSpace;
+        mesh.visible = true
 
         // Listen for the 'removetrack' event on the MediaStream
         // that is emitted when the remote screen sharing stops.
         newStream.addEventListener('removetrack', () => {
           this._clearMediaStream();
           this._waitForMediaStream();
+
+         
         });
       }
 
@@ -112,13 +95,8 @@ mesh.visible = false;
       this.videoTexture = null;
       const mesh = this.el.getObject3D('mesh');
       mesh.material.map = null;
+     mesh.visible = false;
       mesh.material.needsUpdate = true;
-
-
-      const screenPlane = document.querySelector("#screen-plane").object3D;
-      console.log(screenPlane)
-   screenPlane.material.color = new THREE.Color(0x000000)
-
     }
   },
 

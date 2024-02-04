@@ -16,14 +16,7 @@
         if (!NAF.schemas.hasTemplate('#avatar-template')) {
           NAF.schemas.add({
             template: '#avatar-template',
-            components: [
-              'position',
-           
-              {
-                selector: '#avatar-head',
-                component: 'rotation',
-            
-              }]
+            components: ['position', 'rotation']
           });
         }
         const components = NAF.schemas.getComponentsOriginal(template);
@@ -63,6 +56,7 @@
               position="3.87291 0.29625 -0.20761"
               rotation="0 -180 0"
               material=""
+              
               networked-video-source="streamName: screen"
               geometry="width: 5.5; height: 3"
             ></a-plane>
