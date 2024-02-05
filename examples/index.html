@@ -35,7 +35,7 @@
       room: basic-multi-streams;
       debug: true;
       adapter: easyrtc;
-      audio: false;
+      audio: true;
       video: true;
     "
     >
@@ -84,15 +84,16 @@
     </a-scene>
 
     <div class="actions">
-      <button id="camera-btn" type="button" class="button">Hide Camera</button>
+      <button id="mic-btn" type="button" class="button">Mute Mic</button>
       <button id="screen-btn" type="button" class="button">Share screen</button>
     </div>
 
     <script>
-      // Camera status
-      let cameraEnabled = true;
-      // Camera button element
-      const cameraBtnEle = document.getElementById('camera-btn');
+   // Mic status
+   let micEnabled = true;
+      // Mic button element
+      const micBtnEle = document.getElementById('mic-btn');
+
 
       // Screen share status
       let screenEnabled = false;
@@ -111,7 +112,13 @@
       function onConnect() {
         console.log('onConnect', new Date());
 
-        // Handle camera button click (Off and On)
+        // Handle mic button click (Mute and Unmute)
+        micBtnEle.addEventListener('click', function () {
+          NAF.connection.adapter.enableMicrophone(!micEnabled);
+          micEnabled = !micEnabled;
+          micBtnEle.textContent = micEnabled ? 'Mute Mic' : 'Unmute Mic';
+        });
+
 
         // Handle screen button click (Off and On)
         screenBtnEle.addEventListener('click', function () {
